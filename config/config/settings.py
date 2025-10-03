@@ -128,3 +128,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ## Definir modelo propio para usuarios !!! ##
 AUTH_USER_MODEL = "usuarios.Usuario"
+
+
+### configuración de archivos estáticos ### 
+# Archivos estáticos (CSS, JS, imágenes)
+STATIC_URL = '/static/'
+
+# Carpeta "static" en la raíz del proyecto
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Carpeta donde Django juntará todos los estáticos con collectstatic (ej: para producción)
+STATIC_ROOT = BASE_DIR / "staticfiles"

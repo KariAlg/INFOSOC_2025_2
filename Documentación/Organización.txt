@@ -11,3 +11,35 @@ El proyecto es llamado 'config' en este caso, y las aplicaciones como se describ
 
 
 Nota: Ya están las tres aplicaciones creadas, conectadas, y con todos los archivos que corresponden ya creados e implementados.
+
+
+Estructura general:
+
+config/
+│── manage.py
+│── config/
+│── app1/
+│── app2/
+│── app3/
+│── static/         
+│     ├── css/
+│     ├── js/
+│     └── img/
+│── templates/
+
+
+Estructura de una app:
+app1/
+│── __init__.py
+│── admin.py
+│── apps.py
+│── migrations/
+│    └── __init__.py
+│── models.py
+│── tests.py
+│── views.py
+│── urls.py
+│── forms.py
+├── templates/
+└── static/
+
