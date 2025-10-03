@@ -1,0 +1,36 @@
+Views para cada app (propuesta):
+
+Estacionaminetos:
+- landing_page: da la bienvenida y da a elegir qué zona de estacionamiento ver
+
+- visualizador_estacionamientos: Muestra la cantidad de estacionamientos de la zona de estacionamientos cuyo ID recibió como parámetro en la URL
+
+- registrar_entrada: Primero elige la zona, luego rellena los datos
+- registrar_salida: Por la patente, marca qué auto salió. Para esto se necesita el dashboard de autos actualmente estacionados. 
+- dashboard_autos_estacionados: Muestras los autos actualmente esacionados, por zona y tiempo estacionado. 
+
+- descargar_reporte: selecciona valores como fecha inicio, fehca fin, zona estacionamientos, etc y descarga el excel listo.
+
+- crear_estacionamientos: lleva a la creación de una zona de estacionamientos.
+
+- dashboard_consultas_avanzadas: Sirve para consultar todo sobre la base de datos, tipo ver las entradas y salidas del día, o ver el historial de un vehículo en particular, etc. 
+
+
+- modificar_estacionamientos: lleva a la modificación de una zona de estacionamientos. Incluye eliminación de una zona.
+
+Usuarios:
+- login: 
+- logout: Sólo un botón, no necesita template. url si
+
+
+
+- crear_usuario: Crea la cuenta para un guardia con su correo, nombre, apellido y rut. El usuario recibe un correo con su contraseña generada automáticamente. Luego podrá cambiarla si gusta. Nota: Tanto administración debil com oadministración fuerte puede crear guardias, pero sólo administración fuerte  puede crear administración débil.
+
+- modificar_mi_perfil: Se pueden modificar datos del perfil como el correo, contraseña o nombres. No se puede modificar el RUT ni el cargo. 
+
+- borrar_usuario: Siguiendo la misma jerarquía que para la creación de usuarios, se pueden eliminar usuarios del sistema.
+
+
+
+
+ 

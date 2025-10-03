@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from estacionamientos.views import landing_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),
-    path('', include('estacionamientos.urls')),
+    path("", landing_page, name="landing_page"),
+    path('estacionamientos/', include('estacionamientos.urls')),
     path('panel/', include('usuarios.urls')),
 ]

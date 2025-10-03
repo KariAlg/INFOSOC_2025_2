@@ -1,0 +1,34 @@
+Rutas del sistema
+Generales
+
+/ → Landing page (vista inicial para elegir zona de estacionamiento)
+
+APP Estacionamientos
+
+/estacionamientos/zona/<int:zona_id>/ → Visualizador de una zona de estacionamientos
+
+/estacionamientos/crear/ → Crear nueva zona de estacionamientos
+
+/estacionamientos/modificar/<int:zona_id>/ → Modificar o eliminar una zona existente
+
+/estacionamientos/entrada/ → Registrar entrada de vehículo
+
+/estacionamientos/salida/ → Registrar salida de vehículo
+
+/estacionamientos/dashboard/ → Dashboard con autos actualmente estacionados (por zona y tiempo)
+
+/estacionamientos/reporte/ → Descargar reporte filtrado (Excel)
+
+/estacionamientos/visualizacion/ → Visualización de datos / historial de registros
+
+APP Usuarios
+
+/usuarios/login/ → Iniciar sesión
+
+/usuarios/logout/ → Cerrar sesión
+
+/usuarios/crear/ → Crear usuario (guardia o administrativo, según permisos)
+
+/usuarios/modificar/ → Modificar perfil propio (correo, contraseña, nombres)
+
+/usuarios/borrar/<int:user_id>/ → Borrar usuario (según jerarquía de permisos)
