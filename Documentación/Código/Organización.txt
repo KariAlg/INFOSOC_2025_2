@@ -1,0 +1,7 @@
+El proyecto se divide en las siguientes aplicaciones:
+1. Usuarios
+	Se encarga de todo el manejo de usuarios. 
+2. Estacionamientos
+	Se encarga de la lógica de los etacionamientos, tickets etc
+3. Core
+	Lo que no queda en ninguna de las anteriores va aquí. 
