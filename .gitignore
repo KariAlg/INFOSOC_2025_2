@@ -1,0 +1,24 @@
+
+# Entornos virtuales
+venv/
+ENV/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Archivos de configuración locales
+*.env
+*.local
+
+# Archivos de logs
+*.log
+
+# Archivos temporales de editor/IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Archivos de compilación/migraciones innecesarias
+migrations/__pycache__/

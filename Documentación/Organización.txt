@@ -1,7 +1,13 @@
-El proyecto se divide en las siguientes aplicaciones:
+**** Nota: Si no sabe la diferencia entre aplicación y proyecto en Django, consultar antes de meter mano ****
+
+El proyecto es llamado 'config' en este caso, y las aplicaciones como se describen a continuación:
+
 1. Usuarios
 	Se encarga de todo el manejo de usuarios. 
 2. Estacionamientos
 	Se encarga de la lógica de los etacionamientos, tickets etc
 3. Core
 	Lo que no queda en ninguna de las anteriores va aquí. 
+
+
+Nota: Ya están las tres aplicaciones creadas, conectadas, y con todos los archivos que corresponden ya creados e implementados.
