@@ -1,13 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from .models import Guardia, AdministrativoDebil, AdministrativoFuerte
 
 # Create your views here.
 def login_view(request):
-    '''
-    Página de inicio de sesión para usuarios.
-    '''
-    context = {}
-    return render(request, "usuarios/login.html", context)
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            return redirect('home')
+        
+        return render(request, 'login.html', {
+            'form': AuthenticationForm()
+        })
+    else:
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'login.html', {
+                'form': form
+            })
 
+@login_required
+def home_view(request):
+    guard = Guardia.objects.filter(rut=request.user.rut)
+    strongAdmin = AdministrativoFuerte.objects.filter(rut=request.user.rut)
+    weakAdmin = AdministrativoDebil.objects.filter(rut=request.user.rut)
+    rut = request.user.rut
+    cargo = request.user.cargo
+    return render(request, 'home.html', {
+        "rut": rut,
+        "cargo": cargo
+    })
 
 def logout_view(request):
     '''
