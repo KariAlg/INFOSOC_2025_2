@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.core.exceptions import ValidationError
+from .models import ZonaEstacionamiento, RegistroVehiculo
+
 
 # Create your views here.
 
@@ -17,6 +20,12 @@ def visualizador_estacionamientos(request, zona_id):
     context = {"zona_id": zona_id}
     return render(request, "estacionamientos/visualizador.html", context)
 
+
+
+from django.shortcuts import render, redirect
+from .forms import ZonaForm
+from .models import ZonaEstacionamiento
+from .models import RegistroVehiculo
 
 def crear_estacionamientos(request):
     '''
