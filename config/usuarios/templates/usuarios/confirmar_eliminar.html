@@ -1,0 +1,11 @@
+{% block content %}
+<h2>Eliminar usuario</h2>
+
+<p>¿Seguro que deseas eliminar a <strong>{{ usuario_obj.first_name }} {{ usuario_obj.last_name }}</strong> ({{ usuario_obj.get_cargo_display }})?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Sí, eliminar</button>
+  <a href="{% url 'listar_usuarios' %}">Cancelar</a>
+</form>
+{% endblock %}

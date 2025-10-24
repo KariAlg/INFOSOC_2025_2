@@ -1,0 +1,11 @@
+{% block content %}
+<h2>Editar usuario: {{ usuario_obj.first_name }} {{ usuario_obj.last_name }}</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}
+<br><br>
+<a href="{%url 'panel_home'%}">Cancelar</a>

@@ -1,0 +1,1 @@
+Modifiqué la BD para que el rut fuera PK. Deben borrar los archivos de la carpeta '/migrate' de cada app y el archivo .dbsqlite3 y luego volver a hacer las migraciones. 

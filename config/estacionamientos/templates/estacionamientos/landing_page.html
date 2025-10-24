@@ -1,0 +1,11 @@
+<h1>Bienvenido a ParkCount USM</h1>
+<a href="{%url 'panel_home'%}">Ingreso Personal</a>
+<br>
+
+<h3>Zonas de estacionamiento</h3>
+{% for zona in zonas %}
+  <a href="{% url 'visualizador_estacionamientos' zona.id %}" class="zona-link">
+    {{ zona.nombre_zona }}
+  </a>
+  <br>
+{% endfor %}

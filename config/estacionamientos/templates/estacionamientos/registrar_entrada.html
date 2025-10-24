@@ -1,0 +1,46 @@
+<h1>Registrar entrada de vehículo</h1>
+
+{% if not zona_seleccionada %}
+    <!-- Paso 1: elegir zona -->
+    <h2>Seleccione una zona de estacionamiento</h2>
+    <form method="get">
+        <select name="zona" required>
+            <option value="">-- Seleccionar zona --</option>
+            {% for z in zonas %}
+                <option value="{{ z.id }}">{{ z.nombre_zona }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Continuar</button>
+    </form>
+
+{% else %}
+    <!-- Paso 2: mostrar formulario para registrar vehículo -->
+    <h2>Zona seleccionada: {{ zona_seleccionada.nombre_zona }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="zona" value="{{ zona_seleccionada.id }}">
+
+        <label>Patente:</label><br>
+        <input type="text" name="patente" required><br><br>
+
+        <label>Nombre del conductor:</label><br>
+        <input type="text" name="nombre_conductor" required><br><br>
+
+        <label>Apellido del conductor:</label><br>
+        <input type="text" name="apellido_conductor"><br><br>
+
+        <label>RUT del conductor:</label><br>
+        <input type="text" name="rut_conductor"><br><br>
+
+        <button type="submit">Registrar entrada</button>
+    </form>
+
+    <p><a href="{% url 'registrar_entrada' %}">Elegir otra zona</a></p>
+{% endif %}
+
+{% if error %}
+    <p style="color:red;">{{ error }}</p>
+{% endif %}
+<br><br>
+<a href="{%url 'panel_home'%}">Cancelar</a>

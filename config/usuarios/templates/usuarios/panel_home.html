@@ -1,0 +1,11 @@
+{% block content %}
+    <h3>Usuario de tipo: {{usuario.cargo}}</h3>
+    <a class="button1" href="{%url 'logout'%}">Cerrar Sesión</a>
+    <h2>Acciones:</h2>
+    {% for action in actions %}
+    <a class="button1" href="{{ action.1 }}">{{ action.0 }}</a>
+    <br>
+    {% endfor %}
+
+    
+{% endblock %}

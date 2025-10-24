@@ -1,0 +1,16 @@
+
+{% load static %}
+{% block content %}
+
+<h2>Crear usuario</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Crear</button>
+</form>
+
+<br><br>
+<a href="{%url 'panel_home'%}">Cancelar</a>
+
+{% endblock %}

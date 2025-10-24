@@ -1,0 +1,44 @@
+<h1>Modificar zonas de estacionamiento</h1>
+
+{% if not zona_seleccionada %}
+    <h2>Seleccione una zona para modificar</h2>
+    <form method="get">
+        <select name="zona" required>
+            <option value="">-- Seleccionar zona --</option>
+            {% for z in zonas %}
+                <option value="{{ z.id }}">{{ z.nombre_zona }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Editar</button>
+    </form>
+
+{% else %}
+    <h2>Editando: {{ zona_seleccionada.nombre_zona }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="zona" value="{{ zona_seleccionada.id }}">
+
+        <label>Nombre de la zona:</label><br>
+        <input type="text" name="nombre_zona" value="{{ zona_seleccionada.nombre_zona }}" required><br><br>
+
+        <label>Total de estacionamientos:</label><br>
+        <input type="number" name="n_estacionamientos_totales" value="{{ zona_seleccionada.n_estacionamientos_totales }}" min="1" required><br><br>
+
+        <p>Disponibles actuales: {{ zona_seleccionada.disponibles }}</p>
+
+        <button type="submit" name="guardar">Guardar cambios</button>
+        <button type="submit" name="eliminar" onclick="return confirm('¿Seguro que quieres eliminar esta zona?')">Eliminar zona</button>
+    </form>
+
+    <p><a href="{% url 'modificar_estacionamientos' %}">Volver a la selección</a></p>
+{% endif %}
+
+{% if error %}
+    <p style="color:red;">{{ error }}</p>
+{% endif %}
+<br><br>
+<a href="{%url 'crear_estacionamientos'%}">Crear nueva zona de estacionamientos</a>
+
+<br><br>
+<a href="{%url 'panel_home'%}">Cancelar</a>

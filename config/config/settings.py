@@ -140,3 +140,14 @@ STATICFILES_DIRS = [
 
 # Carpeta donde Django juntará todos los estáticos con collectstatic (ej: para producción)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+#Para el auth personalizado:
+AUTHENTICATION_BACKENDS = [
+    'usuarios.backends.RutBackend',  # tu backend personalizado
+    'django.contrib.auth.backends.ModelBackend',  # opcional, como respaldo
+]
+
+
+##Redirección para el login
+LOGIN_URL = 'login/'

@@ -1,0 +1,8 @@
+    <h1>¿Deseas cerrar sesión?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+        <a href="{% url 'panel_home' %}">Cancelar</a>
+    </form>
+

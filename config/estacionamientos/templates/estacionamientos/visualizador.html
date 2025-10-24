@@ -1,0 +1,15 @@
+
+{% load static %} 
+<h5>{{ zona.nombre_zona }}</h5>
+<p><strong>Estacionamientos disponibles:</strong> 
+  <span id="disp">{{ zona.disponibles }}</span> 
+  de {{ zona.n_estacionamientos_totales }}
+</p>
+
+    <a href="{%url 'landing_page'%}">Volver</a>
+
+<!-- Pasar zona.id al script -->
+<span id="zona-id" style="display:none;">{{ zona.id|json_script:"zona-id" }}</span>
+
+<!-- Cargar el JS -->
+<script src="{% static '/js/visualizador.js' %}"></script>

@@ -1,0 +1,63 @@
+<style>
+    .vehiculo-btn {
+        display: block;
+        margin: 8px 0;
+        padding: 10px 16px;
+        border: 1px solid #444;
+        border-radius: 6px;
+        background: #eee;
+        cursor: pointer;
+        text-align: left;
+    }
+    .vehiculo-btn:hover {
+        background: #ccc;
+    }
+</style>
+
+<h1>Registrar salida de vehículo</h1>
+
+{% if not zona_seleccionada %}
+    <!-- Paso 1: Elegir zona -->
+    <h2>Seleccione una zona de estacionamiento</h2>
+    <form method="get">
+        <select name="zona" required>
+            <option value="">-- Seleccionar zona --</option>
+            {% for z in zonas %}
+                <option value="{{ z.id }}">{{ z.nombre_zona }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Continuar</button>
+    </form>
+
+{% else %}
+    <!-- Paso 2: Mostrar vehículos activos -->
+    <h2>Zona seleccionada: {{ zona_seleccionada.nombre_zona }}</h2>
+
+    {% if vehiculos %}
+        <p>Haz clic en un vehículo para registrar su salida:</p>
+
+        {% for v in vehiculos %}
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="zona" value="{{ zona_seleccionada.id }}">
+                <input type="hidden" name="patente" value="{{ v.patente }}">
+                <button type="submit" class="vehiculo-btn">
+                    <strong>{{ v.patente }}</strong><br>
+                    {{ v.nombre_conductor }} {{ v.apellido_conductor|default:'' }}<br>
+                    <small>Hora entrada: {{ v.hora_entrada|date:"H:i d/m/Y" }}</small>
+                </button>
+            </form>
+        {% endfor %}
+    {% else %}
+        <p><em>No hay vehículos estacionados actualmente en esta zona.</em></p>
+    {% endif %}
+
+    <p><a href="{% url 'registrar_salida' %}">Elegir otra zona</a></p>
+{% endif %}
+
+{% if error %}
+    <p style="color:red;">{{ error }}</p>
+{% endif %}
+
+<br><br>
+<a href="{%url 'panel_home'%}">Cancelar</a>

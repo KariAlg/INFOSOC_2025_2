@@ -3,9 +3,11 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path("zona/<int:zona_id>/estado/", views.estado_zona, name="estado_zona"),
     path("zona/<int:zona_id>/", views.visualizador_estacionamientos, name="visualizador_estacionamientos"),
+    
     path("crear/", views.crear_estacionamientos, name="crear_estacionamientos"),
-    path("modificar/<int:zona_id>/", views.modificar_estacionamientos, name="modificar_estacionamientos"),
+    path("modificar/", views.modificar_estacionamientos, name="modificar_estacionamientos"),
 
     path("entrada/", views.registrar_entrada, name="registrar_entrada"),
     path("salida/", views.registrar_salida, name="registrar_salida"),
