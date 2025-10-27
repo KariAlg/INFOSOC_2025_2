@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Guía de estilos{% endblock %}
+{% block content %}
+  <section class="card">
+    <h1>Botones</h1>
+    <p>
+      <a class="btn btn--primary" href="#">Primario</a>
+      <a class="btn btn--accent" href="#">Acento</a>
+      <button class="btn btn--ghost">Ghost</button>
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Formulario</h2>
+    <label class="label" for="n">Nombre</label>
+    <input id="n" class="input" placeholder="Escribe aquí…">
+  </section>
+
+  <section class="card table-wrap">
+    <h2>Tabla</h2>
+    <table class="table">
+      <thead><tr><th>Columna</th><th>Columna</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Fila 1</td><td>Dato</td><td><a class="btn btn--ghost" href="#">Acción</a></td></tr>
+        <tr><td>Fila 2</td><td>Dato</td><td><a class="btn btn--ghost" href="#">Acción</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+{% endblock %}
