@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Guía de estilos{% endblock %}
+{% block title %}LOCURAAA{% endblock %}
 {% block content %}
   <section class="card">
     <h1>Botones</h1>
@@ -26,4 +26,19 @@
       </tbody>
     </table>
   </section>
+
+  <section class="card">
+  <h2>Botón “Volver” del SIGA (locura) </h2>
+  <!-- Volver simple :p -->
+  <button type="button" class="btn btn--siga btn--sm" onclick="history.back()">
+    <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 7l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Volver
+  </button>
+
+  <!-- Volver a inicio -->
+  <a class="btn btn--siga btn--sm" href="{% url 'landing_page' %}">
+    <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 7l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Volver a inicio
+  </a>
+</section>
 {% endblock %}

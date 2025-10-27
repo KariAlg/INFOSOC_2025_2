@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from estacionamientos.views import landing_page
 from usuarios.views import login_view
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path("", landing_page, name="landing_page"),
     path('estacionamientos/', include('estacionamientos.urls')),
     path('panel/', include('usuarios.urls')),
+    path("styleguide/", TemplateView.as_view(template_name="styleguide.html"), name="styleguide"),
 ]

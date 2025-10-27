@@ -31,11 +31,14 @@ html,body{font-family:var(--font-sans); background:var(--bg); color:var(--text)}
 
 *{box-sizing:border-box}
 html,body{height:100%}
+
 body{
   margin:0; background:var(--bg); color:var(--text);
   font-family:var(--font-sans); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
+
 .container{max-width:var(--container-w); margin:0 auto; padding: var(--space-4)}
+
 .card{
   background:var(--surface); border:1px solid var(--border);
   border-radius:var(--radius); box-shadow:var(--shadow-1); padding:1rem;
@@ -53,6 +56,22 @@ body{
 .btn--accent:hover{ filter:brightness(0.98) }
 .btn--ghost{ background:transparent; color:var(--text); border-color:var(--border) }
 .btn--ghost:hover{ background:#f3f4f6 }
+
+/* Botón SIGA / Volver */
+.btn--siga{
+  background: var(--color-button);
+  color: var(--text);
+  border: 1px solid #bbb;
+}
+.btn--siga:hover{ filter: brightness(0.98) }
+.btn--siga:active{ transform: translateY(0.5px) }
+.btn--siga:focus-visible{
+  outline: 3px solid color-mix(in oklab, var(--color-button) 55%, black);
+  outline-offset: 2px;
+}
+/* tamaño pequeño opcional*/
+.btn--sm{ padding: .45rem .8rem; font-size: .9rem }
+.btn__icon{ display:inline-flex; width:1rem; height:1rem }
 
 /* Forms */
 .label{display:block; font-weight:600; margin-bottom:.35rem}
