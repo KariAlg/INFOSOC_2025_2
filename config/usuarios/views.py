@@ -50,7 +50,7 @@ def panel_home(request):
         ["Registrar Salida", reverse('registrar_salida')],
         ["Ver vehiculos estacionados", reverse('dashboard_autos_estacionados')],
         ["Consultar registros", reverse('visualizacion_datos')],
-        ["Generar reporte (pendiente)", reverse('registrar_salida')],
+        ["Generar reporte", reverse('descargar_reporte')],
     ]
     if(usuario.cargo != 'GUARDIA'): 
         actions.append( ["Modifcar Zonas de estacionamientos", reverse('modificar_estacionamientos')])

@@ -4,8 +4,10 @@ from .models import ZonaEstacionamiento, RegistroVehiculo
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponse
 from django.db.models import Prefetch
+import csv
+import io
 
 
 
@@ -224,8 +226,6 @@ def registrar_salida(request):
         "vehiculos": vehiculos
     })
 
-
-#pendientes:
 @login_required
 def dashboard_autos_estacionados(request):
     '''
@@ -303,5 +303,72 @@ def descargar_reporte(request):
     - Zona de estacionamiento
     - Otros criterios de búsqueda
     '''
-    context = {}
-    return render(request, "estacionamientos/descargar_reporte.html", context)
+    zonas = ZonaEstacionamiento.objects.all()
+    if request.method == 'GET':
+        return render(request, "estacionamientos/descargar_reporte.html", {
+            "zonas": zonas
+        })
+    else:
+        fechaInicial = request.POST.get('diaInicio')
+        fechaFinal = request.POST.get('diaFinal')
+        zonasSeleccionadas = request.POST.getlist('zona_id')
+        patenteConsultada = request.POST.get('patente')
+        registros = RegistroVehiculo.objects.all()
+
+        if (fechaInicial > fechaFinal):
+            return render(request, "estacionamientos/descargar_reporte.html",{
+                "error": "Seleccione un rango de fechas válido.",
+                "zonas": zonas
+            })
+        else:
+            registros = registros.filter(hora_entrada__date__gte=fechaInicial)
+            registros = registros.filter(hora_entrada__date__lte=fechaFinal)
+            if registros.count() == 0:
+                return render(request, "estacionamientos/descargar_reporte.html",{
+                    "error": "No se tienen registros en el rango de fechas seleccionado.",
+                    "zonas":zonas
+                })
+        
+        if (zonasSeleccionadas):
+            registros = registros.filter(zona_estacionamiento__in=zonasSeleccionadas)
+            if registros.count() == 0:
+                return render(request, "estacionamientos/descargar_reporte.html",{
+                    "error": "No se tienen registros de vehículos en la zona(s) seleccionada(s).",
+                    "zonas": zonas
+                })
+
+        if (patenteConsultada):
+            registros = registros.filter(patente=patenteConsultada)
+            if registros.count() == 0:
+                return render(request, "estacionamientos/descargar_reporte.html",{
+                    "error": "No se tienen registros sobre la patente consultada."
+                })
+        
+        nombre_archivo = f"reporte_{fechaInicial}_{fechaFinal}.csv"
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="{nombre_archivo}"'
+
+        buffer = io.StringIO()
+        writer = csv.writer(buffer, dialect="excel")
+
+        writer.writerow([
+            'Patente',
+            'Conductor',
+            'RUT conductor',
+            'Zona estacionamiento',
+            'Hora ingreso',
+            'Hora salida'
+        ])
+
+        for vehiculo in registros:
+            writer.writerow([
+                vehiculo.patente,
+                f'{vehiculo.nombre_conductor} {vehiculo.apellido_conductor}',
+                vehiculo.rut_conductor,
+                vehiculo.zona_estacionamiento.nombre_zona,
+                vehiculo.hora_entrada,
+                vehiculo.hora_salida
+            ])
+
+        response.content = buffer.getvalue()
+        return response

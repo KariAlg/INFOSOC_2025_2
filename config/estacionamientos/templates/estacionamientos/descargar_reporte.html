@@ -1,0 +1,29 @@
+<h1>Generar reporte</h1>
+
+<h2>Seleccione opciones para filtrar reporte</h2>
+<form method="post">
+    {% csrf_token %}
+    <h4>Rango de fechas</h4>
+    <label>Fecha inicial:</label>
+    <input type="date" name="diaInicio" required>
+    <label>Fecha final:</label>
+    <input type="date" name="diaFinal" required>
+
+    <h4>Zona estacionamiento (opcional)</h4>
+    <p>Si no se selecciona ninguna casilla, en el reporte se incluiran todas las zonas de estacionamiento</p>
+    {% for zona in zonas %}
+    <input type="checkbox" name="zona_id" value="{{zona.id}}">{{zona.nombre_zona}}</input>
+    {% endfor %}
+
+    <h4>Patente (opcional)</h4>
+    <p>Si no se proporciona una patente, en el reporte se incluiran todos los autos respetando el resto de filtros</p>
+    <input type="text" name="patente">
+    <br><br><br>
+    <button type="submit">Generar reporte</button>
+</form>
+<br>
+<a href="{% url 'panel_home' %}">atrás</a>
+
+{% if error %}
+<p style="color: red;">{{error}}</p>
+{% endif %}
