@@ -1,0 +1,28 @@
+.entrada{ padding:1.25rem; position: relative }
+
+.entrada__header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; margin-bottom:1rem;
+  position: relative; z-index: 5;     /* evita overlay del navbar */
+}
+.entrada__title{ margin:0; font-size:1.375rem; line-height:1.2 }
+.entrada__volver{ position: relative; z-index: 6; pointer-events: auto }
+
+/* grid del formulario */
+.form-grid{ display:grid; gap:1rem; grid-template-columns:1fr }
+@media (min-width:768px){ .form-grid{ grid-template-columns:repeat(2,1fr) } }
+
+.form-control .label{ display:block; font-weight:600; margin-bottom:.35rem }
+.form-control :is(input, select, textarea){
+  width:100%; padding:.6rem .8rem; border:1px solid var(--border);
+  border-radius:var(--radius); background:var(--surface);
+}
+.form-control :is(input, select, textarea):focus{
+  outline:2px solid color-mix(in oklab, var(--brand) 30%, white); outline-offset:1px;
+}
+.form-actions{ display:flex; gap:.6rem; justify-content:flex-end; margin-top:1rem }
+
+.alert{ border-radius:var(--radius); padding:.75rem 1rem; margin:.5rem 0 1rem }
+.alert--error{ background:#fef2f2; color:#991b1b; border:1px solid #fecaca }
+
+.volver-zona{ margin-top:.75rem }

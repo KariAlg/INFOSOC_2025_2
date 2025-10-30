@@ -1,11 +1,37 @@
-{% block content %}
-    <h3>Usuario de tipo: {{usuario.cargo}}</h3>
-    <a class="button1" href="{%url 'logout'%}">Cerrar Sesión</a>
-    <h2>Acciones:</h2>
-    {% for action in actions %}
-    <a class="button1" href="{{ action.1 }}">{{ action.0 }}</a>
-    <br>
-    {% endfor %}
+{% extends "base.html" %}
+{% load static %}
 
-    
+{% block title %}Panel{% endblock %}
+
+{% block page_css %}
+  <!-- fuentes del mock -->
+  <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700&family=Red+Hat+Text:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/pages/panel_home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="panel-home">
+  <div class="hero" role="img" aria-label="Campus USM"></div>
+
+  {% if actions %}
+    <ul class="actions">
+      {% for label, url in actions %}
+        <li>
+          <a class="action-tile" href="{{ url }}">
+            <span class="action-tile__label">{{ label }}</span>
+            <span class="action-tile__chev" aria-hidden="true">›</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty-state card">No hay acciones disponibles.</div>
+  {% endif %}
+
+  <div class="cta-bar">
+    <div class="cta-bar__inner">
+      <a class="btn btn--siga btn--sm" href="{{ reporte_url|default:'#' }}">Descargar reporte</a>
+    </div>
+  </div>
+</section>
 {% endblock %}

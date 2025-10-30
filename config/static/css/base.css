@@ -92,3 +92,16 @@ body{
 .row--between{justify-content:space-between; align-items:center}
 .grid-2{display:grid; grid-template-columns:1fr; gap:1rem}
 @media (min-width:768px){ .grid-2{grid-template-columns:1fr 1fr} }
+header.navbar,
+.navbar,
+#navbar,
+.navbar-responsive-bar,
+.navbar__bar,
+.navbar__nav,
+.navbar__list,
+#overlay,
+#open-sidebar-button,
+#close-sidebar-button {
+  display: none !important;
+}
+main.container { padding-top: 0 !important; }

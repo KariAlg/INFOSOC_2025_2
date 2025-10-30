@@ -6,14 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}INFOSOC{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+   <!-- <link rel="stylesheet" href="{% static 'css/navbar.css' %}">  DESACTIVADO TEMPORALMENTEEE -->
   <script defer src="{% static 'js/app.js' %}"></script>
+
+    {% block page_css %}{% endblock %}
 </head>
 <body>
-  {% include "navbar.html" %}
+  <!-- {% include "navbar.html" %} -->
   <main class="container">
     {% block content %}{% endblock %}
   </main>
   {% include "footer.html" %}
+  <!-- <script defer src="{% static 'js/componentes/navbar.js' %}"></script> -->
+  <script defer src="{% static 'js/app.js' %}"></script>
+    {% block page_js %}{% endblock %}
 </body>
 </html>

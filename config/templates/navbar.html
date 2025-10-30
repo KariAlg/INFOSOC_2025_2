@@ -1,38 +1,31 @@
-{% load static %}
+ <!-- Usa href reales, no "" {% load static %}
+<header class="navbar" role="banner">
+  <div class="navbar__bar shadow1">
+    <a class="navbar__brand" href="{% url 'landing_page' %}">
+      <img src="{% static 'img/logo-usm.svg' %}" alt="Universidad Técnica Federico Santa María" class="logo-navbar">
+    </a>
 
-<div class="navbar-responsive-bar shadow1">
-    <a href=""><img src="" alt="" class="logo-navbar"></a>
-    <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false" aria-controls="navbar">
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z"/></svg>
+    <button id="open-sidebar-button" class="navbar__toggle" aria-label="Abrir menú" aria-controls="navbar" aria-expanded="false">
+
+      <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 0 24 24" width="28" fill="currentColor"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </button>
-</div>
+  </div>
 
-<nav id="navbar" class="">
-<ul>
-    <li>
-    <button id="close-sidebar-button" onclick="closeSidebar()" >
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z"/></svg>
-    </button>
-    </li>
-    <li class="home-li"><a href=""><img src="" alt="" class="logo-navbar"></a></li>
-        <li >
-        <a class="goto-navbar first-link p2" href="">Link1</a>
-        </li>
-        <li >
-        <a class="goto-navbar first-link p2" href="">Link2</a>
-        </li>
-        <li >
-        <a class="goto-navbar p2" href="">Link3</a>
-        </li>
+  <nav id="navbar" class="navbar__nav" aria-label="Navegación principal">
+    <ul class="navbar__list">
+      <li class="navbar__close">
+        <button id="close-sidebar-button" class="navbar__toggle" aria-label="Cerrar menú">
+          <svg xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 0 24 24" width="28" fill="currentColor"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </li>
 
-        </li>
+      <li><a class="goto-navbar p2" href="{% url 'landing_page' %}">Inicio</a></li>
+      <li><a class="goto-navbar p2" href="/panel/">Panel</a></li>
+      <li><a class="goto-navbar p2" href="{% url 'registrar_entrada' %}">Registrar Entrada</a></li>
+      <li><a class="goto-navbar p2" href="{% url 'registrar_salida' %}">Registrar Salida</a></li>
+    </ul>
+  </nav>
 
-</ul>
-</nav>
-
-<div id="overlay" onclick="closeSidebar()"></div>
-
-<script src="{% static 'js/navbar.js' %}"></script>
-
-
-        
+  <div id="overlay" class="navbar__overlay" aria-hidden="true"></div>
+</header>
+-->

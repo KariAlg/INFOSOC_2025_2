@@ -1,40 +1,16 @@
-const openButton = document.getElementById('open-sidebar-button')
-const navbar = document.getElementById('navbar')
+// static/js/componentes/navbar.js
+(() => {
+  const openBtn = document.getElementById('open-sidebar-button');
+  const closeBtn = document.getElementById('close-sidebar-button');
+  const overlay = document.getElementById('overlay');
 
-const media = window.matchMedia("(width < 700px)")
+  const open = () => { document.body.classList.add('nav-open'); openBtn?.setAttribute('aria-expanded','true'); };
+  const close = () => { document.body.classList.remove('nav-open'); openBtn?.setAttribute('aria-expanded','false'); };
 
-media.addEventListener('change', (e) => updateNavbar(e))
+  openBtn?.addEventListener('click', (e)=>{ e.preventDefault(); open(); });
+  closeBtn?.addEventListener('click', (e)=>{ e.preventDefault(); close(); });
+  overlay?.addEventListener('click', close);
 
-
-function updateNavbar(e){
-  const isMobile = e.matches
-  if(isMobile){
-    navbar.setAttribute('inert', '')
-  }
-  else{
-    // desktop device
-    navbar.removeAttribute('inert')
-  }
-}
-
-function openSidebar(){
-  navbar.classList.add('show')
-  openButton.setAttribute('aria-expanded', 'true')
-  navbar.removeAttribute('inert')
-}
-
-function closeSidebar(){
-  navbar.classList.remove('show')
-  openButton.setAttribute('aria-expanded', 'false')
-  navbar.setAttribute('inert', '')
-}
-
-// For Bookmark Links
-// const navLinks = document.querySelectorAll('nav a')
-// navLinks.forEach(link => {
-//   link.addEventListener('click', () => {
-//     closeSidebar()
-//   })
-// })
-
-updateNavbar(media)
+  // Cierra menú si cambias a desktop
+  window.addEventListener('resize', () => { if (window.innerWidth >= 1024) close(); });
+})();

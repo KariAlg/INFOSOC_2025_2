@@ -1,0 +1,61 @@
+/* panel home */
+.panel-home{
+  background:#F2F3F7; /* como Figma */
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+
+/* HERO (534px desktop aprox.) */
+.hero{
+  width:100%;
+  min-height:320px;
+  height:clamp(280px, 37vw, 540px);
+  background-image:url("/static/img/panel/hero.jpg");
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 4px 4px rgba(0,0,0,.25);
+}
+
+/* GRID de acciones */
+.actions{
+  list-style:none; padding:2rem 1rem; margin:0;
+  display:grid; gap:1rem;
+  grid-template-columns:repeat(1, minmax(220px,1fr));
+  max-width:var(--container-w); margin-inline:auto;
+}
+@media (min-width:640px){
+  .actions{ grid-template-columns:repeat(2, minmax(220px,1fr)); }
+}
+@media (min-width:1024px){
+  .actions{ grid-template-columns:repeat(4, minmax(220px,1fr)); }
+}
+
+/* Tarjeta-botón azul (328x97 aprox.) */
+.action-tile{
+  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+  background:var(--azul_usm); color:#fff; text-decoration:none;
+  border-radius:15px; padding:1.25rem 1rem; min-height:97px;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:var(--shadow-1);
+  transition:filter .15s, transform .02s, box-shadow .15s;
+}
+.action-tile:hover{ filter:brightness(1.02); box-shadow:0 2px 8px rgba(0,0,0,.12) }
+.action-tile:active{ transform:translateY(.5px) }
+.action-tile__label{
+  font-family:"Passion One", system-ui, sans-serif;
+  font-size:1.35rem; line-height:1.2; letter-spacing:.2px; text-transform:uppercase;
+}
+.action-tile__chev{ font-size:1.8rem; opacity:.8 }
+
+/* Estado vacío */
+.empty-state{ margin:1.5rem auto; max-width:900px }
+
+/* Barra inferior naranja (90px desktop aprox.) */
+.cta-bar{
+  width:100%; background:var(--naranjo_usm);
+  min-height:72px; height:clamp(64px, 8vh, 90px);
+  display:flex; align-items:center; margin-top:1rem;
+}
+.cta-bar__inner{
+  width:100%; max-width:var(--container-w); margin-inline:auto; padding:0 1rem;
+}
