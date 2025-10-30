@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import Http404, JsonResponse
+from django.db.models import Prefetch
 
 
 
@@ -231,8 +232,68 @@ def dashboard_autos_estacionados(request):
     Muestra los vehículos actualmente estacionados, separados por zona y tiempo dentro.
     Desde aquí se puede marcar la salida de un auto.
     '''
-    context = {}
-    return render(request, "estacionamientos/dashboard_autos.html", context)
+    zonas_con_vehiculos = ZonaEstacionamiento.objects.prefetch_related('registros')
+    return render(request, "estacionamientos/dashboard_autos_estacionados.html",{
+        "vehiculos": zonas_con_vehiculos,
+    })
+
+@login_required
+def visualizacion_datos(request):
+    '''
+    Vista de consultas sobre la base de datos:
+    - Ver entradas/salidas de un día (op1)
+    - Historial de un vehículo por patente (op2)
+    - Filtrar registros por zona y fecha (op3)
+    '''
+    if request.method == 'GET':
+        verES = request.GET.get('op1')
+        historialVehiculo = request.GET.get('op2')
+        filtrarRegistros = request.GET.get('op3')
+
+        if verES:
+            diaAConsultar = request.GET.get('dia')
+            registro_del_dia = RegistroVehiculo.objects.filter(hora_entrada__date=diaAConsultar)
+            registro_del_dia = Prefetch('registros',queryset=registro_del_dia)
+            registro_del_dia = ZonaEstacionamiento.objects.prefetch_related(registro_del_dia)
+            if diaAConsultar:
+                return render(request, "estacionamientos/visualizacion_datos.html",{
+                    "opcionSeleccionada": 1,
+                    "registros": registro_del_dia
+                })
+            return render(request, "estacionamientos/visualizacion_datos.html",{
+                "opcionSeleccionada": 1
+            })
+        elif historialVehiculo:
+            patenteAConsultar = request.GET.get('patente')
+            registro_patente = RegistroVehiculo.objects.filter(patente=patenteAConsultar)
+            if patenteAConsultar:
+                return render(request, "estacionamientos/visualizacion_datos.html",{
+                    "opcionSeleccionada": 2,
+                    "registros": registro_patente,
+                    "patenteConsultada": patenteAConsultar
+                })
+            return render(request, "estacionamientos/visualizacion_datos.html",{
+                "opcionSeleccionada": 2
+            })
+        elif filtrarRegistros:
+            zonas = ZonaEstacionamiento.objects.all()
+            diaAConsultar = request.GET.get('dia')
+            zonaAConsultar =  request.GET.get('zona')
+            registro_zona = RegistroVehiculo.objects.filter(hora_entrada__date=diaAConsultar, zona_estacionamiento=zonaAConsultar)
+            if diaAConsultar and zonaAConsultar:
+                zonaStr = get_object_or_404(ZonaEstacionamiento, id=zonaAConsultar)
+                return render(request, "estacionamientos/visualizacion_datos.html",{
+                    "opcionSeleccionada": 3,
+                    "registros": registro_zona,
+                    "zona": zonaStr,
+                    "dia": diaAConsultar
+                })
+            return render(request, "estacionamientos/visualizacion_datos.html",{
+                "opcionSeleccionada": 3,
+                "zonas": zonas
+            })
+        else:
+            return render(request, "estacionamientos/visualizacion_datos.html")
 
 @login_required
 def descargar_reporte(request):
@@ -244,14 +305,3 @@ def descargar_reporte(request):
     '''
     context = {}
     return render(request, "estacionamientos/descargar_reporte.html", context)
-
-@login_required
-def visualizacion_datos(request):
-    '''
-    Vista de consultas sobre la base de datos:
-    - Ver entradas/salidas de un día
-    - Historial de un vehículo por patente
-    - Filtrar registros por zona y fecha
-    '''
-    context = {}
-    return render(request, "estacionamientos/visualizacion_datos.html", context)

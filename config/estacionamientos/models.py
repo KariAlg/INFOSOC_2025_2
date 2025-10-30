@@ -9,8 +9,11 @@ class ZonaEstacionamiento(models.Model):
     n_estacionamientos_totales = models.PositiveIntegerField()
     disponibles = models.PositiveIntegerField()
 
+    # def __str__(self):
+    #     return f"{self.nombre_zona} ({self.disponibles}/{self.n_estacionamientos_totales})"
+
     def __str__(self):
-        return f"{self.nombre_zona} ({self.disponibles}/{self.n_estacionamientos_totales})"
+        return f"{self.nombre_zona}"
     
     @classmethod
     def crear_estacionamiento(cls,nombre_zona,n_estacionamientos_totales,disponibles=None): 

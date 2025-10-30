@@ -1,0 +1,46 @@
+<h1>Vehiculos estacionados</h1>
+{% for zona in vehiculos %}
+<h2>{{ zona.nombre_zona }}</h2>
+    
+    <table>
+        <tr>
+            <th>Patente</th>
+            <th>Conductor</th>
+            <th>RUT Conductor</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th>Tiempo en el establecimiento</th>
+            <th>Acciones</th>
+        </tr>
+        
+        {% for vehiculo in zona.registros.all %}
+            <tr>
+                <td>{{ vehiculo.patente }}</td>
+                <td>{{ vehiculo.nombre_conductor }}{{ vehiculo.apellido_conductor }}</td>
+                <td>{{ vehiculo.rut_conductor }}</td>
+                <td>{{ vehiculo.hora_entrada | date:"H:i:s" }}</td>
+                <td>{{ vehiculo.hora_salida | date:"H:i:s" }}</td>
+                {% if vehiculo.hora_salida is None %}
+                    <td>{{ vehiculo.hora_entrada | timesince }}</td>
+                    <td>
+                        <form action="{% url 'registrar_salida' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="zona" value="{{vehiculo.zona_estacionamiento_id}}">
+                            <input type="hidden" name="patente" value="{{vehiculo.patente}}">
+                            <button type="submit">Registrar salida</button>
+                        </form>
+                    </td>
+                {% else %}
+                    <td>{{ vehiculo.hora_entrada | timesince:vehiculo.hora_salida}}</td>
+                {% endif %}
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No hay vehículos en esta zona.</td>
+            </tr>
+        {% endfor %}
+        
+    </table>
+{% endfor %}
+<br><br>
+<a href="{%url 'panel_home'%}">Volver</a>

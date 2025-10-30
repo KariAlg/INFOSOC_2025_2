@@ -48,8 +48,9 @@ def panel_home(request):
     actions = [
         ["Registrar Entrada", reverse('registrar_entrada')],
         ["Registrar Salida", reverse('registrar_salida')],
-        ["Ver vehiculos estacionados (pendiente)", reverse('registrar_salida')],
-        ["Consultar registros diarios (pendiente)", reverse('registrar_salida')],
+        ["Ver vehiculos estacionados", reverse('dashboard_autos_estacionados')],
+        ["Consultar registros", reverse('visualizacion_datos')],
+        ["Generar reporte (pendiente)", reverse('registrar_salida')],
     ]
     if(usuario.cargo != 'GUARDIA'): 
         actions.append( ["Modifcar Zonas de estacionamientos", reverse('modificar_estacionamientos')])
@@ -170,6 +171,10 @@ def borrar_usuario(request, rut):
 
     # Renderiza confirmación
     return render(request, "usuarios/confirmar_eliminar.html", {"usuario_obj": usuario_obj})
+
+
+# def generar_planilla(request):
+#     if request.method == "GET":
 
 
 #Pendientes

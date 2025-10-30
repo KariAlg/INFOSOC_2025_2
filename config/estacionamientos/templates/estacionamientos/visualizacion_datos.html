@@ -1,0 +1,148 @@
+<h1>Consultar datos</h1>
+
+{% if not opcionSeleccionada %}
+<h2>Seleccione opción de búsqueda</h2>
+    <form method="get">
+        <input type="hidden" name="op1" value="1">
+        <button type="submit">Consultar entrada/salida de un día</button>
+    </form>
+    
+    <form method="get">
+        <input type="hidden" name="op2" value="1">
+        <button type="submit">Historial de un vehículo por patente</button>
+    </form>
+
+    <form method="get">
+        <input type="hidden" name="op3" value="1">
+        <button type="submit">Filtrar registros por zona y fecha</button>
+    </form>
+
+    <a href="{% url 'panel_home' %}">atrás</a>
+{% else %}
+    {% if opcionSeleccionada == 1 %}
+        <h2>Consultar entrada/salida de un día</h2>
+        {% if not registros %}
+            <form method="get">
+                <label>Seleccione un dia:</label>
+                <input
+                type="date"
+                name="dia"/>
+                <input type="hidden" name="op1" value="1">
+                <button type="submit">Consultar</button>
+            </form>
+        {% else %}
+            {% for zona in registros %}
+            <h2>{{ zona.nombre_zona }}</h2>
+    
+            <table>
+                <tr>
+                    <th>Patente</th>
+                    <th>Conductor</th>
+                    <th>RUT Conductor</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                </tr>
+        
+                {% for vehiculo in zona.registros.all %}
+                    <tr>
+                        <td>{{ vehiculo.patente }}</td>
+                        <td>{{ vehiculo.nombre_conductor }}{{ vehiculo.apellido_conductor }}</td>
+                        <td>{{ vehiculo.rut_conductor }}</td>
+                        <td>{{ vehiculo.hora_entrada | date:"H:i:s" }}</td>
+                        <td>{{ vehiculo.hora_salida | date:"H:i:s" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Sin registro de vehículos</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% endfor %}
+        {% endif %}
+
+
+    {% elif opcionSeleccionada == 2 %}
+        <h2>Historial de un vehículo por patente</h2>
+        {% if not registros %}
+            <form method="get">
+                <label>Escriba la patente a consultar:</label>
+                <input
+                type="text"
+                name="patente"/>
+                <input type="hidden" name="op2" value="1">
+                <button type="submit">Consultar</button>
+            </form>
+        {% else %}
+            <h2>Patente Consultada: {{patenteConsultada}}</h2>
+            <table>
+                <tr>
+                    <th>Conductor</th>
+                    <th>RUT conductor</th>
+                    <th>Día y hora de entrada</th>
+                    <th>Día y hora de salida</th>
+                    <th>Sector estacionamiento</th>
+                </tr>
+                {% for reg in registros %}
+                    <tr>
+                        <td>{{reg.nombre_conductor}} {{reg.apellido_conductor}}</td>
+                        <td>{{reg.rut_conductor}}</td>
+                        <td>{{reg.hora_entrada}}</td>
+                        <td>{{reg.hora_salida}}</td>
+                        <td>{{reg.zona_estacionamiento.nombre_zona}}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Sin registros del vehículo.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        {% endif %}
+
+
+    {% elif opcionSeleccionada == 3%}
+        <h2>Filtrar registros por zona y fecha</h2>
+        {% if not registros %}
+            <form method="get">
+                <label>Seleccione zona:</label>
+                <select name="zona" required>
+                    <option value="">-- Seleccionar zona --</option>
+                    {% for z in zonas %}
+                        <option value="{{ z.id }}">{{ z.nombre_zona }}</option>
+                    {% endfor %}
+                </select>
+                <label>Seleccione un día:</label>
+                <input
+                type="date"
+                name="dia"/>
+                <input type="hidden" name="op3" value="1">
+                <button type="submit">Consultar</button>
+            </form>
+        {% else %}
+            <h2>Zona consultada: {{zona}}, Dia consultado: {{dia}}</h2>
+            <table>
+                <tr>
+                    <th>Conductor</th>
+                    <th>RUT conductor</th>
+                    <th>Patente</th>
+                    <th>Día y hora de entrada</th>
+                    <th>Día y hora de salida</th>
+                </tr>
+                {% for reg in registros %}
+                    <tr>
+                        <td>{{reg.nombre_conductor}} {{reg.apellido_conductor}}</td>
+                        <td>{{reg.rut_conductor}}</td>
+                        <td>{{reg.patente}}</td>
+                        <td>{{reg.hora_entrada}}</td>
+                        <td>{{reg.hora_salida}}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Sin registros de vehículos.</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    {% endif %}
+    <a href="{% url 'visualizacion_datos' %}">atrás</a>
+{% endif %}
