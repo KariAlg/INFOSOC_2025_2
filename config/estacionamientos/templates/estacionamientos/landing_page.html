@@ -1,11 +1,57 @@
-<h1>Bienvenido a ParkCount USM</h1>
-<a href="{%url 'panel_home'%}">Ingreso Personal</a>
-<br>
+{% extends "base.html" %}
+{% load static %}
 
-<h3>Zonas de estacionamiento</h3>
-{% for zona in zonas %}
-  <a href="{% url 'visualizador_estacionamientos' zona.id %}" class="zona-link">
-    {{ zona.nombre_zona }}
-  </a>
-  <br>
-{% endfor %}
+{% block title %}Bienvenido a ParkCount USM{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/landing_page.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="landing">
+
+  <!-- HERO -->
+  <div class="hero" role="img" aria-label="Campus USM">
+    <div class="hero__inner">
+      <h1 class="hero__title">Bienvenido a ParkCount USM</h1>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="{% url 'panel_home' %}">Ingreso personal</a>
+        <a class="btn btn--siga" href="#zonas">Ver zonas disponibles</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ZONAS -->
+  <section id="zonas" class="card zonas">
+    <div class="row row--between">
+      <h2 class="zonas__title">Zonas de estacionamiento</h2>
+      <span class="badge">{{ zonas|length }} zona{% if zonas|length != 1 %}s{% endif %}</span>
+    </div>
+
+    {% if zonas %}
+      <ul class="zones-grid">
+        {% for zona in zonas %}
+          <li class="zone-card">
+            <div class="zone-card__body">
+              <h3 class="zone-card__title">{{ zona.nombre_zona }}</h3>
+              {% if zona.n_estacionamientos_totales %}
+                <p class="zone-card__meta">
+                  <strong>{{ zona.n_estacionamientos_totales }}</strong> puestos totales
+                </p>
+              {% endif %}
+            </div>
+            <div class="zone-card__actions">
+              <a class="btn btn--accent btn--sm" href="{% url 'visualizador_estacionamientos' zona.id %}">
+                Ver ocupación
+              </a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">No hay zonas para mostrar.</div>
+    {% endif %}
+  </section>
+
+</section>
+{% endblock %}

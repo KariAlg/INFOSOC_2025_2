@@ -1,44 +1,73 @@
-<h1>Modificar zonas de estacionamiento</h1>
+{% extends "base.html" %}
+{% load static %}
 
-{% if not zona_seleccionada %}
-    <h2>Seleccione una zona para modificar</h2>
-    <form method="get">
-        <select name="zona" required>
-            <option value="">-- Seleccionar zona --</option>
-            {% for z in zonas %}
-                <option value="{{ z.id }}">{{ z.nombre_zona }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Editar</button>
-    </form>
+{% block title %}Modificar zonas{% endblock %}
 
-{% else %}
-    <h2>Editando: {{ zona_seleccionada.nombre_zona }}</h2>
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/modificar_estacionamientos.css' %}">
+{% endblock %}
 
-    <form method="post">
+{% block content %}
+<section class="card">
+  <div class="row row--between">
+    <h1 style="margin:0">Modificar zonas de estacionamiento</h1>
+    <div class="row" style="gap:.5rem">
+      <a class="btn btn--ghost" href="{% url 'panel_home' %}">Volver</a>
+      {# si existe esta URL, úsala. Si no, quítala #}
+      <a class="btn btn--primary" href="{% url 'crear_estacionamientos' %}">Crear zona</a>
+    </div>
+  </div>
+
+  <p class="muted">Edita el nombre y la capacidad total. <em>Disponibles</em> es de solo lectura.</p>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="zones-list">
+    {% for z in zonas %}
+      <form method="post" class="zone-card">
         {% csrf_token %}
-        <input type="hidden" name="zona" value="{{ zona_seleccionada.id }}">
+        <input type="hidden" name="zona_id" value="{{ z.id }}">
 
-        <label>Nombre de la zona:</label><br>
-        <input type="text" name="nombre_zona" value="{{ zona_seleccionada.nombre_zona }}" required><br><br>
+        <div class="zone-grid">
+          <div class="field">
+            <label class="label" for="nombre_{{ z.id }}">Nombre</label>
+            <input id="nombre_{{ z.id }}" class="input" type="text" name="nombre_zona" value="{{ z.nombre_zona }}" required>
+          </div>
 
-        <label>Total de estacionamientos:</label><br>
-        <input type="number" name="n_estacionamientos_totales" value="{{ zona_seleccionada.n_estacionamientos_totales }}" min="1" required><br><br>
+          <div class="field">
+            <label class="label" for="tot_{{ z.id }}">Total de cupos</label>
+            <input id="tot_{{ z.id }}" class="input" type="number" min="0" name="n_estacionamientos_totales" value="{{ z.n_estacionamientos_totales }}" required>
+          </div>
 
-        <p>Disponibles actuales: {{ zona_seleccionada.disponibles }}</p>
+          <div class="field">
+            <label class="label">Disponibles</label>
+            <input class="input input--ro" type="number" value="{{ z.disponibles }}" readonly>
+          </div>
 
-        <button type="submit" name="guardar">Guardar cambios</button>
-        <button type="submit" name="eliminar" onclick="return confirm('¿Seguro que quieres eliminar esta zona?')">Eliminar zona</button>
-    </form>
+          <div class="field">
+            <label class="label">Resumen</label>
+            <div class="pill">
+              {{ z.disponibles }}/{{ z.n_estacionamientos_totales }} libres
+            </div>
+          </div>
+        </div>
 
-    <p><a href="{% url 'modificar_estacionamientos' %}">Volver a la selección</a></p>
-{% endif %}
+        <div class="zone-actions">
+          <button class="btn btn--primary" name="accion" value="update" type="submit">Guardar</button>
 
-{% if error %}
-    <p style="color:red;">{{ error }}</p>
-{% endif %}
-<br><br>
-<a href="{%url 'crear_estacionamientos'%}">Crear nueva zona de estacionamientos</a>
-
-<br><br>
-<a href="{%url 'panel_home'%}">Cancelar</a>
+          <button class="btn btn--ghost btn--danger" name="accion" value="delete" type="submit"
+                  onclick="return confirm('¿Eliminar la zona «{{ z.nombre_zona }}»? Esta acción no se puede deshacer.');">
+            Eliminar
+          </button>
+        </div>
+      </form>
+    {% empty %}
+      <div class="empty-state">No hay zonas creadas aún.</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

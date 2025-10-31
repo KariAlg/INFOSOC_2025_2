@@ -1,0 +1,67 @@
+/* Alertas */
+.alert{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:.6rem .75rem; margin:.5rem 0 1rem;
+  background:#f8fafc;
+}
+.alert--error{
+  background:#fee2e2; border-color:#fca5a5; color:#b42318; font-weight:600;
+}
+
+/* Layout del formulario */
+.form{ display:block }
+.form-grid{
+  display:grid; gap:1rem; margin-top:.5rem;
+  grid-template-columns:1fr;               /* móvil */
+}
+@media (min-width:720px){
+  .form-grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+/* Estiliza los <p> que genera form.as_p como si fueran "fields" */
+.form-grid > p{
+  margin:0; display:flex; flex-direction:column; gap:.35rem;
+}
+
+/* Etiquetas e inputs (sin modificar forms.py) */
+.form-grid label{ font-weight:600 }
+.form-grid input[type="text"],
+.form-grid input[type="email"],
+.form-grid input[type="password"],
+.form-grid input[type="number"],
+.form-grid input[type="tel"],
+.form-grid input[type="date"],
+.form-grid input[type="url"],
+.form-grid select,
+.form-grid textarea{
+  width:100%; padding:.6rem .8rem;
+  border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--surface);
+}
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus{
+  outline:2px solid color-mix(in oklab, var(--brand) 30%, white);
+}
+
+/* Ayudas y errores de Django */
+.form-grid .helptext{
+  color:#6b7280; font-size:.9rem;
+}
+.form-grid ul.errorlist{
+  list-style:none; padding:.5rem .6rem; margin:0;
+  border:1px solid #fca5a5; background:#fee2e2; color:#b42318;
+  border-radius:var(--radius);
+}
+
+/* Acciones */
+.actions{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.75rem }
+
+@media (min-width:720px){
+  .form-grid > p:has(textarea),
+  .form-grid > p:has(input[type="password"]:nth-of-type(2)), 
+  .form-grid > p:has(select[multiple]) {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,80 @@
+/* Ensanchar contenedor solo en esta página */
+@supports selector(main:has(.landing)){
+  main.container:has(.landing){
+    max-width: min(96vw, 1440px);
+  }
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  height: clamp(360px, 42vw, 620px);
+  background-image: url("/static/img/panel/hero.jpg"); /* usa tu misma imagen del panel */
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 4px rgba(0,0,0,.25);
+}
+.hero::after{
+  content: "";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.25));
+}
+.hero__inner{
+  position: relative; z-index:1;
+  max-width: 900px;
+  padding: clamp(1rem, 4vw, 2rem);
+  color: #fff;
+}
+.hero__title{
+  margin: 0 0 .25rem;
+  font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.6rem);
+  font-weight: 900;
+}
+.hero__subtitle{
+  margin: 0 0 1rem;
+  font-size: clamp(1rem, .9rem + .5vw, 1.2rem);
+  opacity: .95;
+}
+.hero__actions{ display:flex; gap:.6rem; flex-wrap:wrap }
+
+/* ---------- ZONAS ---------- */
+.zonas{ margin-top: 1rem; }
+.zonas__title{ margin:0 }
+.badge{
+  background: var(--azul_usm); color:#fff;
+  border-radius:999px; padding:.2rem .6rem; font-weight:700; font-size:.85rem;
+}
+
+/* Grid de zonas */
+.zones-grid{
+  list-style:none; padding:0; margin:1rem 0 0;
+  display:grid; gap:1rem;
+  grid-template-columns: 1fr;            /* móvil */
+}
+@media (min-width:640px){ .zones-grid{ grid-template-columns:repeat(2, 1fr); } }
+@media (min-width:1024px){ .zones-grid{ grid-template-columns:repeat(3, 1fr); } }
+@media (min-width:1440px){ .zones-grid{ grid-template-columns:repeat(4, 1fr); } }
+
+/* Tarjeta de zona */
+.zone-card{
+  background: var(--surface);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow-1);
+  display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem;
+}
+.zone-card__title{ margin:.1rem 0 .25rem }
+.zone-card__meta{ margin:0; color:#6b7280 }
+.zone-card__actions{ display:flex; align-items:center }
+
+/* Estados vacíos */
+.empty-state{
+  margin-top:.75rem; padding:1rem; text-align:center;
+  border:1px solid var(--border); border-radius:var(--radius);
+  background: var(--surface); color:#6b7280;
+}

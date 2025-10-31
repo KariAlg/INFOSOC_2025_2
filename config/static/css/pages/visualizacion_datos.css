@@ -1,0 +1,81 @@
+.muted{ color:#6b7280; margin:.25rem 0 1rem }
+.sub{ margin:.25rem 0 1rem }
+
+/* Grid de opciones (inicio) */
+.options-grid{
+  display:grid; gap:1rem;
+  grid-template-columns:1fr;             /* móvil */
+}
+@media (min-width:640px){ .options-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1024px){ .options-grid{ grid-template-columns:repeat(3,1fr); } }
+
+.option{
+  margin:0; padding:0; background:transparent; border:0;
+}
+.option__btn{
+  width:100%;
+  display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem 1.25rem;
+  font-weight:700; cursor:pointer;
+  box-shadow:var(--shadow-1);
+  transition:filter .15s, box-shadow .15s;
+}
+.option__btn:hover{ filter:brightness(0.98); box-shadow:0 2px 8px rgba(0,0,0,.12) }
+.option__chev{ font-size:1.4rem; opacity:.6 }
+
+/* Formularios */
+.form-grid{
+  display:grid; gap:1rem; margin: .5rem 0 1rem;
+  grid-template-columns:1fr;             /* móvil */
+}
+@media (min-width:640px){
+  .form-grid{ grid-template-columns:repeat(2,1fr); align-items:end; }
+  .form-grid .actions{ grid-column:1 / -1; }
+}
+.field{ display:flex; flex-direction:column; gap:.35rem }
+.actions{ display:flex; gap:.5rem; flex-wrap:wrap }
+.mt{ margin-top: .75rem }
+
+/* Bloque por zona */
+.zona-block{ margin: 1rem 0 }
+.zona-block__header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:.25rem }
+.zona-title{ margin:0 }
+
+/* Tabla apilada en móvil */
+.table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; position:relative }
+.table thead th{ font-weight:700 }
+.empty{ text-align:center; color:#6b7280 }
+
+/* Sticky header en desktop */
+.table.table--sticky thead th{
+  position: sticky; top: 0;
+  background: var(--surface);
+  z-index: 1;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+/* Versión apilada */
+@media (max-width: 640px){
+  .table.table--stack thead{ display:none; }
+  .table.table--stack{
+    width:100%; min-width:0;
+    border-collapse:separate; border-spacing:0 .75rem;
+  }
+  .table.table--stack tbody{ display:block }
+  .table.table--stack tr{
+    display:block; background:var(--surface);
+    border:1px solid var(--border); border-radius:var(--radius);
+    padding:.6rem .75rem; margin:0 0 .5rem;
+  }
+  .table.table--stack td{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:.75rem; padding:.35rem 0; border:0; white-space:normal;
+  }
+  .table.table--stack td::before{
+    content: attr(data-label);
+    font-weight:600; color:#6b7280; min-width:40%;
+  }
+}

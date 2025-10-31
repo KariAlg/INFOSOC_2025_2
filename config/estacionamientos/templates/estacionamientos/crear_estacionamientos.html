@@ -1,19 +1,52 @@
-<h1>Crear nueva zona de estacionamiento</h1>
+{% extends "base.html" %}
+{% load static %}
 
-<form method="post">
+{% block title %}Crear zona{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/crear_estacionamientos.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="card">
+  <div class="row row--between">
+    <h1 style="margin:0">Crear nueva zona de estacionamiento</h1>
+    <a class="btn btn--siga btn--sm" href="{% url 'modificar_estacionamientos' %}">Volver</a>
+  </div>
+
+  {% if error %}
+    <div class="alert alert--error" role="alert">{{ error }}</div>
+  {% endif %}
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" class="form">
     {% csrf_token %}
-    <label for="nombre_zona">Nombre de la zona:</label><br>
-    <input type="text" id="nombre_zona" name="nombre_zona" required><br><br>
 
-    <label for="n_estacionamientos_totales">Cantidad total de estacionamientos:</label><br>
-    <input type="number" id="n_estacionamientos_totales" name="n_estacionamientos_totales" min="1" required><br><br>
+    <fieldset class="field-group">
+      <legend>Datos de la zona</legend>
 
+      <div class="form-grid">
+        <div class="field">
+          <label class="label" for="nombre_zona">Nombre de la zona</label>
+          <input class="input" type="text" id="nombre_zona" name="nombre_zona" required placeholder="Ej: Patio Norte / Z-3">
+        </div>
 
-    <button type="submit">Crear zona</button>
-</form>
+        <div class="field">
+          <label class="label" for="n_estacionamientos_totales">Cantidad total de estacionamientos</label>
+          <input class="input" type="number" id="n_estacionamientos_totales" name="n_estacionamientos_totales" min="1" step="1" required placeholder="Ej: 120">
+        </div>
+      </div>
+    </fieldset>
 
-{% if error %}
-    <p style="color:red;">{{ error }}</p>
-{% endif %}
-
-<p><a href="{% url 'modificar_estacionamientos' %}">← Volver</a></p>
+    <div class="actions">
+      <button class="btn btn--primary" type="submit">Crear zona</button>
+      <a class="btn btn--ghost" href="{% url 'modificar_estacionamientos' %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

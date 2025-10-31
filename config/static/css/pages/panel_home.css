@@ -1,15 +1,25 @@
-/* panel home */
+/* ====== PANEL HOME ====== */
 .panel-home{
   background:#F2F3F7; /* como Figma */
   border-radius:var(--radius);
   overflow:hidden;
 }
 
-/* HERO (534px desktop aprox.) */
+/* — Contenedor más ancho SOLO en esta página —
+   usamos :has() para apuntar al main que contiene .panel-home */
+@supports selector(main:has(.panel-home)){
+  main.container:has(.panel-home){
+    max-width: min(96vw, 1440px);   /* antes 1200px global */
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}
+
+/* HERO (escala mejor en pantallas grandes) */
 .hero{
   width:100%;
   min-height:320px;
-  height:clamp(280px, 37vw, 540px);
+  height:clamp(300px, 42vw, 620px); /* más alto en monitores anchos */
   background-image:url("/static/img/panel/hero.jpg");
   background-size:cover;
   background-position:center;
@@ -21,13 +31,17 @@
   list-style:none; padding:2rem 1rem; margin:0;
   display:grid; gap:1rem;
   grid-template-columns:repeat(1, minmax(220px,1fr));
-  max-width:var(--container-w); margin-inline:auto;
+  max-width:min(96vw, 1440px);       /* acompaña el ancho del main */
+  margin-inline:auto;
 }
 @media (min-width:640px){
-  .actions{ grid-template-columns:repeat(2, minmax(220px,1fr)); }
+  .actions{ grid-template-columns:repeat(2, minmax(240px,1fr)); }
 }
-@media (min-width:1024px){
-  .actions{ grid-template-columns:repeat(4, minmax(220px,1fr)); }
+@media (min-width:900px){
+  .actions{ grid-template-columns:repeat(3, minmax(260px,1fr)); }
+}
+@media (min-width:1200px){
+  .actions{ grid-template-columns:repeat(4, minmax(260px,1fr)); }
 }
 
 /* Tarjeta-botón azul (328x97 aprox.) */
@@ -43,7 +57,8 @@
 .action-tile:active{ transform:translateY(.5px) }
 .action-tile__label{
   font-family:"Passion One", system-ui, sans-serif;
-  font-size:1.35rem; line-height:1.2; letter-spacing:.2px; text-transform:uppercase;
+  font-size:clamp(1.05rem, 0.8rem + 0.6vw, 1.35rem);
+  line-height:1.2; letter-spacing:.2px; text-transform:uppercase;
 }
 .action-tile__chev{ font-size:1.8rem; opacity:.8 }
 
@@ -57,5 +72,11 @@
   display:flex; align-items:center; margin-top:1rem;
 }
 .cta-bar__inner{
-  width:100%; max-width:var(--container-w); margin-inline:auto; padding:0 1rem;
+  width:100%; max-width:min(96vw, 1440px); /* acompaña el main */
+  margin-inline:auto; padding:0 1rem;
+}
+
+/* Pequeño refinamiento en pantallas muy anchas */
+@media (min-width:1600px){
+  .action-tile{ min-height:104px; }
 }

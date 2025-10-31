@@ -1,15 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
 
-{% load static %} 
-<h5>{{ zona.nombre_zona }}</h5>
-<p><strong>Estacionamientos disponibles:</strong> 
-  <span id="disp">{{ zona.disponibles }}</span> 
-  de {{ zona.n_estacionamientos_totales }}
-</p>
+{% block title %}Visualizador{% endblock %}
 
-    <a href="{%url 'landing_page'%}">Volver</a>
+{% block page_css %}
+  <!-- tipografía grande del mock -->
+  <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/pages/visualizador.css' %}">
+{% endblock %}
 
-<!-- Pasar zona.id al script -->
-<span id="zona-id" style="display:none;">{{ zona.id|json_script:"zona-id" }}</span>
+{% block content %}
+<section class="vk visual-kiosk" data-totales="{{ zona.n_estacionamientos_totales|default:0 }}">
+  <!-- Cinta azul superior -->
+  <div class="vk-topbar">
+    <!-- logo: 
+    <img src="{% static 'img/logo-usm.svg' %}" alt="USM" class="vk-logo"> -->
+  </div>
 
-<!-- Cargar el JS -->
-<script src="{% static '/js/visualizador.js' %}"></script>
+  <!-- Chip con nombre de la zona y estado -->
+  <div class="vk-zone">
+    <h2 class="vk-zone__title">{{ zona.nombre_zona }}</h2>
+    <span id="vkState" class="vk-state">Libre</span>
+  </div>
+
+
+  <!-- Banda principal con el número gigante -->
+  <div class="vk-band">
+    <h1 class="vk-title">
+      Plazas disponibles:
+      <span id="disp">{{ zona.disponibles }}</span>
+    </h1>
+  </div>
+
+  <!-- Hero de fondo (misma imagen del panel) -->
+  <div class="vk-hero" role="img" aria-label="Campus USM"></div>
+
+  <!-- Cinta inferior naranja con volver -->
+  <div class="vk-footer">
+    <a class="btn btn--siga btn--sm" href="{% url 'landing_page' %}">Volver</a>
+  </div>
+</section>
+
+{% block page_js %}
+  <script defer src="{% static 'js/componentes/visualizador.js' %}"></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,35 @@
+/* Alertas y helpers */
+.alert{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:.6rem .75rem; margin:.5rem 0 1rem;
+  background:#f8fafc;
+}
+.alert--error{
+  background:#fee2e2; border-color:#fca5a5; color:#b42318; font-weight:600;
+}
+.help{ color:#6b7280; margin:.25rem 0 0 }
+
+/* Agrupador */
+.field-group{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem; margin:0 0 1rem 0;
+}
+.field-group > legend{
+  font-weight:800; padding:0 .4rem; font-size:1rem;
+}
+
+/* Form layout */
+.form{ display:block }
+.form-grid{
+  display:grid; gap:1rem; margin-top:.25rem;
+  grid-template-columns:1fr;              /* móvil */
+}
+@media (min-width:720px){
+  .form-grid{ grid-template-columns:repeat(2,1fr); }
+}
+.field{ display:flex; flex-direction:column; gap:.35rem }
+
+/* Acciones */
+.actions{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.75rem }
