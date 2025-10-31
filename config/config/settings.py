@@ -149,5 +149,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "no-reply@tuapp.cl"
+
+
 ##Redirección para el login
 LOGIN_URL = 'login/'
