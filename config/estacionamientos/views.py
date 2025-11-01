@@ -232,7 +232,9 @@ def dashboard_autos_estacionados(request):
     Muestra los vehículos actualmente estacionados, separados por zona y tiempo dentro.
     Desde aquí se puede marcar la salida de un auto.
     '''
-    zonas_con_vehiculos = ZonaEstacionamiento.objects.prefetch_related('registros')
+    registros_activos = RegistroVehiculo.objects.filter(hora_salida__isnull=True)
+    prefetch_filtrado = Prefetch('registros', queryset=registros_activos)
+    zonas_con_vehiculos = ZonaEstacionamiento.objects.prefetch_related(prefetch_filtrado)
     return render(request, "estacionamientos/dashboard_autos_estacionados.html",{
         "vehiculos": zonas_con_vehiculos,
     })
@@ -361,13 +363,17 @@ def descargar_reporte(request):
         ])
 
         for vehiculo in registros:
+            format_hourIn = str(vehiculo.hora_entrada)
+            format_hourOut = str(vehiculo.hora_salida)
+            format_hourIn = format_hourIn[:19]
+            format_hourOut = format_hourOut[:19]
             writer.writerow([
                 vehiculo.patente,
                 f'{vehiculo.nombre_conductor} {vehiculo.apellido_conductor}',
                 vehiculo.rut_conductor,
                 vehiculo.zona_estacionamiento.nombre_zona,
-                vehiculo.hora_entrada,
-                vehiculo.hora_salida
+                format_hourIn,
+                format_hourOut
             ])
 
         response.content = buffer.getvalue()

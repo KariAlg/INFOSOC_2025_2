@@ -144,7 +144,11 @@
                   <td data-label="Conductor">{{ reg.nombre_conductor }} {{ reg.apellido_conductor }}</td>
                   <td data-label="RUT">{{ reg.rut_conductor }}</td>
                   <td data-label="Entrada">{{ reg.hora_entrada }}</td>
-                  <td data-label="Salida">{{ reg.hora_salida }}</td>
+                  {% if reg.hora_salida == None %}
+                    <td data-label="Salida">En recinto</td>
+                  {% else %}
+                    <td data-label="Salida">{{ reg.hora_salida }}</td>
+                  {% endif %}
                   <td data-label="Zona">{{ reg.zona_estacionamiento.nombre_zona }}</td>
                 </tr>
               {% empty %}

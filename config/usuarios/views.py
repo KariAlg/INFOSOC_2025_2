@@ -24,7 +24,7 @@ def login_view(request):
         try:
             user_obj = Usuario.objects.get(rut=rut_normalizado)
         except Usuario.DoesNotExist:
-            return render(request, 'login.html', {
+            return render(request, 'registration/login.html', {
                 'error_type': 'rut',
                 'error_message': 'El RUT ingresado no existe.'
             })
@@ -35,12 +35,12 @@ def login_view(request):
             login(request, user)
             return redirect('panel_home')
         else:
-            return render(request, 'login.html', {
+            return render(request, 'registration/login.html', {
                 'error_type': 'password',
                 'error_message': 'La contraseña es incorrecta.'
             })
 
-    return render(request, 'login.html')
+    return render(request, 'registration/login.html')
 
 @login_required
 def panel_home(request):
@@ -48,12 +48,12 @@ def panel_home(request):
     actions = [
         ["Registrar Entrada", reverse('registrar_entrada')],
         ["Registrar Salida", reverse('registrar_salida')],
-        ["Ver vehiculos estacionados", reverse('dashboard_autos_estacionados')],
+        ["Ver vehículos estacionados", reverse('dashboard_autos_estacionados')],
         ["Consultar registros", reverse('visualizacion_datos')],
         ["Generar reporte", reverse('descargar_reporte')],
     ]
     if(usuario.cargo != 'GUARDIA'): 
-        actions.append( ["Modifcar Zonas de estacionamientos", reverse('modificar_estacionamientos')])
+        actions.append( ["Modificar Zonas de estacionamientos", reverse('modificar_estacionamientos')])
         actions.append( ["Crear Nuevo Usuario", reverse('crear_usuario')])
         actions.append( ["Modificar Usuario Existente", reverse('listar_usuarios')])
 

@@ -34,7 +34,6 @@
                 <th>Conductor</th>
                 <th>RUT</th>
                 <th>Entrada</th>
-                <th>Salida</th>
                 <th>Tiempo</th>
                 <th>Acciones</th>
               </tr>
@@ -48,19 +47,8 @@
                   </td>
                   <td data-label="RUT">{{ vehiculo.rut_conductor }}</td>
                   <td data-label="Entrada">{{ vehiculo.hora_entrada|date:"H:i d/m/Y" }}</td>
-                  <td data-label="Salida">
-                    {% if vehiculo.hora_salida %}
-                      {{ vehiculo.hora_salida|date:"H:i d/m/Y" }}
-                    {% else %}
-                      <span class="status status--in">En curso</span>
-                    {% endif %}
-                  </td>
                   <td data-label="Tiempo">
-                    {% if vehiculo.hora_salida %}
-                      {{ vehiculo.hora_entrada|timesince:vehiculo.hora_salida }}
-                    {% else %}
                       {{ vehiculo.hora_entrada|timesince }}
-                    {% endif %}
                   </td>
                   <td class="acciones" data-label="Acciones">
                     {% if not vehiculo.hora_salida %}
