@@ -1,11 +1,46 @@
-{% block content %}
-<h2>Editar usuario: {{ usuario_obj.first_name }} {{ usuario_obj.last_name }}</h2>
+{% extends "base.html" %}
+{% load static %}
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Guardar cambios</button>
-</form>
+{% block title %}Editar usuario{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/editar_usuario.css' %}">
 {% endblock %}
-<br><br>
-<a href="{%url 'panel_home'%}">Cancelar</a>
+
+
+{% block content %}
+<section class="card auth">
+  <h1 class="auth__title">Editar usuario</h1>
+  {% if usuario_obj %}
+    <p class="muted" style="margin-top:-.25rem">
+      {{ usuario_obj.first_name }} {{ usuario_obj.last_name }}
+      {% if usuario_obj.rut %} • RUT: {{ usuario_obj.rut }}{% endif %}
+    </p>
+  {% endif %}
+
+  {% if form.non_field_errors %}
+    <div class="alert alert--error" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+  <form method="post" class="form" novalidate>
+    {% csrf_token %}
+    <div class="form-grid">
+      {% for field in form %}
+        <p>
+          <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<span class="helptext">{{ field.help_text|safe }}</span>{% endif %}
+          {% if field.errors %}
+            <ul class="errorlist">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>
+          {% endif %}
+        </p>
+      {% endfor %}
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="submit">Guardar cambios</button>
+      <a class="btn btn--ghost" href="{% url 'panel_home' %}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

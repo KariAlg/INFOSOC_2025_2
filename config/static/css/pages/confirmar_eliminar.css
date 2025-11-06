@@ -1,0 +1,26 @@
+.confirm{
+  max-width: 720px;
+  margin: 1.5rem auto;
+  padding: 1.25rem;
+}
+.confirm__title{ margin:0 0 .5rem }
+.confirm__text{ margin:.25rem 0 1rem }
+
+/* Alertas (por si llegan mensajes) */
+.alert{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:.6rem .75rem; margin:.5rem 0 1rem;
+  background:#f8fafc;
+}
+
+/* Acciones */
+.confirm__actions{
+  display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.75rem;
+}
+
+/* Botón de peligro consistente */
+.btn--danger{
+  color:#b42318; border:1px solid #fca5a5; background:#fff;
+}
+.btn--danger:hover{ background:#fee2e2 }

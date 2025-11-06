@@ -1,11 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Eliminar usuario{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/confirmar_eliminar.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Eliminar usuario</h2>
+<section class="card confirm">
+  <h1 class="confirm__title">Eliminar usuario</h1>
+  <p class="confirm__text">
+    ¿Seguro que deseas eliminar a
+    <strong>{{ usuario_obj.first_name }} {{ usuario_obj.last_name }}</strong>
+    {% if usuario_obj.get_cargo_display %} ({{ usuario_obj.get_cargo_display }}){% endif %}?
+  </p>
 
-<p>¿Seguro que deseas eliminar a <strong>{{ usuario_obj.first_name }} {{ usuario_obj.last_name }}</strong> ({{ usuario_obj.get_cargo_display }})?</p>
+  {% if messages %}
+    {% for m in messages %}
+      <div class="alert">{{ m }}</div>
+    {% endfor %}
+  {% endif %}
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Sí, eliminar</button>
-  <a href="{% url 'listar_usuarios' %}">Cancelar</a>
-</form>
+  <form method="post" class="confirm__actions">
+    {% csrf_token %}
+    <button class="btn btn--danger" type="submit">Sí, eliminar</button>
+    <a class="btn btn--ghost" href="{% url 'listar_usuarios' %}">Cancelar</a>
+  </form>
+</section>
 {% endblock %}

@@ -1,8 +1,21 @@
-    <h1>¿Deseas cerrar sesión?</h1>
+{% extends "base.html" %}
+{% load static %}
 
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Cerrar sesión</button>
-        <a href="{% url 'panel_home' %}">Cancelar</a>
-    </form>
+{% block title %}Cerrar sesión{% endblock %}
 
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/pages/confirmar_eliminar.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="card confirm">
+  <h1 class="confirm__title">¿Deseas cerrar sesión?</h1>
+  <p class="confirm__text">Se cerrará tu sesión actual en el panel.</p>
+
+  <form method="post" class="confirm__actions">
+    {% csrf_token %}
+    <button class="btn btn--primary" type="submit">Cerrar sesión</button>
+    <a class="btn btn--ghost" href="{% url 'panel_home' %}">Cancelar</a>
+  </form>
+</section>
+{% endblock %}
