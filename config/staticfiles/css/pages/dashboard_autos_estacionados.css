@@ -1,0 +1,65 @@
+.header-card .title{ margin:0 }
+
+.zonas-stack{
+  display:grid; gap:1rem;
+}
+
+.zona-card__header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; margin-bottom:.5rem;
+}
+.zona-card__title{ margin:0 }
+.badge{
+  background: var(--azul_usm);
+  color:#fff; border-radius:999px;
+  padding:.2rem .6rem; font-weight:700; font-size:.85rem;
+}
+
+/* Acentos de tabla (desktop) */
+.table thead th{ font-weight:700 }
+.table tbody tr.is-active{ background:#f8fbff } /* resalta activos */
+.patente{ font-weight:700; letter-spacing:.3px; text-transform:uppercase }
+.muted{ color:#6b7280 }
+.empty{ text-align:center; color:#6b7280 }
+.acciones form{ margin:0 }
+
+/* Sticky header en desktop */
+.table.table--sticky thead th{
+  position: sticky; top: 0;
+  background: var(--surface);
+  z-index: 1;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+/* --- Versión apilada en móvil (<=640px) --- */
+@media (max-width: 640px){
+  .table.table--stack thead{ display:none; }
+  .table.table--stack{
+    width:100%; min-width:0;
+    border-collapse: separate; border-spacing: 0 .75rem;
+  }
+  .table.table--stack tbody{ display:block }
+  .table.table--stack tr{
+    display:block; background: var(--surface);
+    border:1px solid var(--border); border-radius: var(--radius);
+    padding:.6rem .75rem; margin: 0 0 .5rem;
+  }
+  .table.table--stack td{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:.75rem; padding:.35rem 0; border:0; white-space: normal;
+  }
+  .table.table--stack td::before{
+    content: attr(data-label);
+    font-weight:600; color:#6b7280; min-width: 44%;
+  }
+  .table.table--stack td.acciones{ justify-content:flex-end }
+}
+
+/* Sombra sutil de scroll cuando hay overflow (desktop) */
+.table-wrap{ position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-wrap::after{
+  content:""; position:absolute; top:0; right:0; width:24px; height:100%;
+  pointer-events:none; background: linear-gradient(to left, rgba(0,0,0,.06), transparent);
+  opacity:0; transition:opacity .2s;
+}
+.table-wrap:has(table){ opacity:1 }

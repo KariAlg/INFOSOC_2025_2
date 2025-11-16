@@ -17,30 +17,22 @@ def login_view(request):
         rut = request.POST.get('rut')
         password = request.POST.get('password')
 
-        # 🔹 Normaliza el RUT antes de usarlo
         rut_normalizado = normalizar_rut(rut)
 
-        # 1️⃣ Verifica si existe el usuario
-        try:
-            user_obj = Usuario.objects.get(rut=rut_normalizado)
-        except Usuario.DoesNotExist:
-            return render(request, 'registration/login.html', {
-                'error_type': 'rut',
-                'error_message': 'El RUT ingresado no existe.'
-            })
+        # Intento de autenticación normal
+        user = authenticate(request, rut=rut_normalizado, password=password)
 
-        # 2️⃣ Verifica la contraseña (usa el backend, que también normaliza)
-        user = authenticate(request, rut=rut, password=password)
         if user is not None:
             login(request, user)
             return redirect('panel_home')
-        else:
-            return render(request, 'registration/login.html', {
-                'error_type': 'password',
-                'error_message': 'La contraseña es incorrecta.'
-            })
+
+        # Mensaje genérico (no revela si falló rut o pass)
+        return render(request, 'registration/login.html', {
+            'error_message': 'Credenciales inválidas.'
+        })
 
     return render(request, 'registration/login.html')
+
 
 @login_required
 def panel_home(request):

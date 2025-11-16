@@ -1,0 +1,63 @@
+.muted{ color:#6b7280; margin:.25rem 0 1rem }
+.alert{
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:.6rem .75rem; margin:.5rem 0 1rem;
+  background:#f8fafc;
+}
+
+/* Lista de tarjetas de zona */
+.zones-list{
+  display:grid; gap:1rem;
+}
+
+/* Tarjeta/form de una zona */
+.zone-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem;
+  box-shadow:var(--shadow-1);
+}
+
+/* Grid interno */
+.zone-grid{
+  display:grid; gap:1rem;
+  grid-template-columns: 2fr 1fr 1fr 1fr;  /* desktop */
+}
+@media (max-width: 1024px){
+  .zone-grid{
+    grid-template-columns: 1fr 1fr;       /* tablet */
+  }
+}
+@media (max-width: 640px){
+  .zone-grid{
+    grid-template-columns: 1fr;           /* móvil */
+  }
+}
+
+.field{ display:flex; flex-direction:column; gap:.35rem }
+.input--ro{ background:#f9fafb }
+
+/* Resumen compactado */
+.pill{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.35rem .6rem; border-radius:999px;
+  background:#eef2f7; border:1px solid var(--border);
+  font-weight:700; color:#374151;
+}
+
+/* Acciones */
+.zone-actions{
+  display:flex; gap:.6rem; flex-wrap:wrap;
+  justify-content:flex-end;
+  margin-top:.75rem;
+}
+
+/* Botón peligro */
+.btn--danger{
+  color:#b42318; border-color:#fca5a5 !important;
+}
+.btn--danger:hover{
+  background:#fee2e2;
+}

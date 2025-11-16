@@ -1,0 +1,41 @@
+:root { --navbar-h: 64px; }
+
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: #fff; }
+.navbar__bar {
+  display:flex; align-items:center; justify-content:space-between;
+  height: var(--navbar-h); padding: 0 1rem;
+  background: var(--azul_usm); color: #fff;
+}
+.logo-navbar { height: 40px; display:block }
+
+/* Empuja el contenido para no quedar debajo del navbar */
+main.container { padding-top: calc(var(--navbar-h) + 12px); position: relative; z-index: 1; }
+
+/* Menú lateral móvil (cerrado por defecto) */
+.navbar__nav {
+  position: fixed; top: var(--navbar-h); right: 0;
+  width: min(320px, 85vw); height: calc(100dvh - var(--navbar-h));
+  background: var(--surface); transform: translateX(100%);
+  transition: transform .2s ease; z-index: 50; box-shadow: -2px 0 12px rgba(0,0,0,.1);
+}
+.navbar__list { list-style: none; margin: 0; padding: 1rem; display: grid; gap: .5rem; }
+.navbar__toggle { background: transparent; border: 0; color: #fff; cursor: pointer; }
+
+/* Overlay */
+.navbar__overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.35);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 45;
+}
+
+/* Estado abierto */
+body.nav-open .navbar__nav { transform: translateX(0); }
+body.nav-open .navbar__overlay { opacity: 1; pointer-events: auto; }
+
+/* Desktop */
+@media (min-width: 1024px){
+  .navbar { position: sticky; }
+  .navbar__nav { position: static; transform: none; height: auto; width: auto; box-shadow: none; }
+  .navbar__overlay { display: none; }
+  .navbar__list { display: flex; align-items: center; gap: 1rem; padding: 0 1rem; }
+  .navbar__toggle { display: none; }
+}

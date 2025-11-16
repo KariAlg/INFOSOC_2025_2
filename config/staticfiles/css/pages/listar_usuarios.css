@@ -1,0 +1,51 @@
+.muted{ color:#6b7280 }
+.empty-state{
+  padding:1rem; border:1px solid var(--border);
+  border-radius:var(--radius); background:var(--surface);
+  text-align:center; color:#6b7280;
+}
+
+/* Acciones en la tabla */
+.acciones{ display:flex; gap:.4rem; flex-wrap:wrap; }
+.btn--danger{ color:#b42318; border-color:#fca5a5 !important; }
+.btn--danger:hover{ background:#fee2e2; }
+
+/* Asegurar que emails largos no rompan layout */
+.email{ word-break: break-word; }
+
+/* Sticky header en desktop (reutiliza base) */
+.table.table--sticky thead th{
+  position: sticky; top: 0;
+  background: var(--surface);
+  z-index: 1;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+/* Tabla apilada en móvil */
+.table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; position:relative }
+.table thead th{ font-weight:700 }
+
+@media (max-width: 640px){
+  .table.table--stack thead{ display:none; }
+  .table.table--stack{
+    width:100%; min-width:0;
+    border-collapse:separate; border-spacing:0 .75rem;
+  }
+  .table.table--stack tbody{ display:block }
+  .table.table--stack tr{
+    display:block; background:var(--surface);
+    border:1px solid var(--border); border-radius:var(--radius);
+    padding:.6rem .75rem; margin:0 0 .5rem;
+  }
+  .table.table--stack td{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:.75rem; padding:.35rem 0; border:0; white-space:normal;
+  }
+  .table.table--stack td::before{
+    content: attr(data-label);
+    font-weight:600; color:#6b7280; min-width:40%;
+  }
+  .table.table--stack td.acciones{
+    justify-content:flex-end;
+  }
+}
